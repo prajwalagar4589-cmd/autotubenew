@@ -1,0 +1,11 @@
+openai>=1.40
+feedparser>=6.0
+requests>=2.31
+pyyaml>=6.0
+numpy<2.3
+soundfile>=0.12
+trafilatura>=1.12
+kokoro>=0.9.4
+google-api-python-client>=2.130
+google-auth>=2.30
+google-auth-oauthlib>=1.2

@@ -1,0 +1,117 @@
+# ================= Channel identity =================
+channel:
+  name: "One Smart Minute"        # change freely; shown on every video + description
+  tagline: "AI, tech, money, engineering and the world, explained in one minute."
+  audience: "Indian working professionals and students, 18-40, curious about AI, technology, money, current affairs and how things work"
+  language: "English (simple, Indian context, no jargon without explanation)"
+
+# ================= Publishing =================
+publish:
+  # "pipedream" = upload through a Pipedream workflow (no Google Cloud needed)
+  # "youtube_api" = direct YouTube Data API (needs your own Google Cloud project)
+  method: "pipedream"
+  privacy: "public"               # if uploads land as private, see README troubleshooting
+  # Your channel ID (starts with UC...). YouTube Studio -> Settings -> Channel -> Advanced.
+  # Used for free analytics via the channel's public RSS feed.
+  channel_id: ""
+  category_id: "27"               # 27 = Education (fits the full topic mix)
+  max_duration_sec: 58            # stays under 60s so it is always a Short
+
+# ================= Content mix (Monday=0 ... Sunday=6) =================
+pillars:
+  0: ai
+  1: money
+  2: engineering
+  3: politics
+  4: technology
+  5: education
+  6: general_knowledge
+evergreen_pillars: [general_knowledge]
+# If a news pillar has too little fresh material, make an evergreen video
+# on the same pillar instead of skipping the day.
+min_items_for_news: 3
+
+# Formats rotate so the channel does not look template-mass-produced
+formats:
+  - "news_explained: what happened, why it matters, what it means for the viewer"
+  - "myth_vs_fact: one common belief, the actual facts, the takeaway"
+  - "number_story: one striking number from the sources and the story behind it"
+  - "how_it_works: explain the mechanism behind something in 3 clear steps"
+  - "compare: two things people confuse, the real difference"
+
+# ================= LLMs (all free; tried in order until one works) =================
+llm:
+  writer:
+    - {provider: nvidia,     model: "nvidia/nemotron-3-ultra-550b-a55b"}
+    - {provider: openrouter, model: "nvidia/nemotron-3-ultra-550b-a55b:free"}
+    - {provider: openrouter, model: "nvidia/nemotron-3-super-120b-a12b:free"}
+  # Fact-checker should ideally be a DIFFERENT model family from the writer.
+  # Browse https://openrouter.ai/models?max_price=0 and put one at the top.
+  checker:
+    - {provider: openrouter, model: "nvidia/nemotron-3-super-120b-a12b:free"}
+    - {provider: nvidia,     model: "nvidia/nemotron-3-ultra-550b-a55b"}
+
+providers:
+  nvidia:     {base_url: "https://integrate.api.nvidia.com/v1", key_env: "NVIDIA_API_KEY"}
+  openrouter: {base_url: "https://openrouter.ai/api/v1",        key_env: "OPENROUTER_API_KEY"}
+
+# ================= Voice (Kokoro, open source) =================
+tts:
+  voice: "am_michael"             # alternatives: af_heart, am_adam, bm_george, bf_emma
+  speed: 1.08
+
+# ================= Sources (RSS). Broken feeds are skipped and reported. =================
+sources:
+  ai:
+    - https://rss.arxiv.org/rss/cs.AI
+    - https://huggingface.co/blog/feed.xml
+    - https://techcrunch.com/category/artificial-intelligence/feed/
+    - https://hnrss.org/newest?q=AI+OR+LLM&points=150
+  technology:
+    - https://hnrss.org/frontpage?points=250
+    - https://techcrunch.com/feed/
+    - https://www.theverge.com/rss/index.xml
+    - https://feeds.arstechnica.com/arstechnica/technology-lab
+  engineering:
+    - https://spectrum.ieee.org/feeds/feed.rss
+    - https://interestingengineering.com/feed
+    - https://www.nasa.gov/news-release/feed/
+    - https://www.isro.gov.in/rss.xml
+  politics:
+    - https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3
+    - https://www.thehindu.com/news/national/feeder/default.rss
+    - https://indianexpress.com/section/india/feed/
+    - https://feeds.bbci.co.uk/news/world/rss.xml
+  money:
+    - https://www.rbi.org.in/pressreleases_rss.xml
+    - https://www.sebi.gov.in/sebirss.xml
+    - https://www.livemint.com/rss/money
+    - https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms
+  education:
+    - https://indianexpress.com/section/education/feed/
+    - https://www.thehindu.com/education/feeder/default.rss
+  general_knowledge: []
+
+# ================= Safety =================
+compliance:
+  finance_pillars: [money]
+  finance_disclaimer: "Educational content only. Not investment advice. Do your own research or consult a SEBI-registered adviser."
+  ai_disclosure: "This video is fully AI-generated (script, voice and edit) from the sources listed below."
+  politics_rules: >
+    Strictly neutral and factual. Explain what happened, what the rule, bill or
+    decision says, and who it affects. Attribute every claim to its source. No
+    opinions, no praise or criticism of any party, leader or government, no
+    predictions of election outcomes, no loaded adjectives. If the topic is an
+    active controversy, give each side's stated position in one line each.
+  banned_phrases:
+    - "buy now"
+    - "you should buy"
+    - "you should sell"
+    - "target price"
+    - "guaranteed return"
+    - "multibagger"
+    - "sure-shot"
+    - "stock tip"
+    - "vote for"
+    - "don't vote"
+    - "anti-national"
