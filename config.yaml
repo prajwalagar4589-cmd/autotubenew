@@ -13,7 +13,7 @@ publish:
   privacy: "public"               # if uploads land as private, see README troubleshooting
   # Your channel ID (starts with UC...). YouTube Studio -> Settings -> Channel -> Advanced.
   # Used for free analytics via the channel's public RSS feed.
-  channel_id: ""
+  channel_id: "UCwULkwiJTw_adiLnnBfJ16A"
   category_id: "27"               # 27 = Education (fits the full topic mix)
   max_duration_sec: 58            # stays under 60s so it is always a Short
 
